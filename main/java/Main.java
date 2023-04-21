@@ -41,27 +41,28 @@ public class Main {
 										{
 												//check P upgrade
 												Pieces retired = board.selectPieces(x,y);
-												if(retired != null)
+												Pieces k= board.getKing(current);
+												if(k.canGetHere(board.getPresent()))
 												{
+														System.out.println("Movement not allowed");
+												}
+												else {
+													if(retired != null)
+													{
 
 														//System.out.println("Present count: " +d.getPresent().size());
 														retired.move(-1,-1);
 														retired.setPresent(false);
 														board.getPresent().remove(retired);
 														//System.out.println("Present count: " +d.getPresent().size());
-												}
+													}
 
-												c.move(x,y);// check now for problems and undo move if problem
-												Pieces k= board.getKing(current);
-												if(k.canGetHere(board.getPresent()))
-												{
-														c.move(i,j);
-														System.out.println("Movement not allowed");
+													c.move(x,y);
+													board.render( board.getPresent());
+													current = !current;
+													if(current)System.out.println("Go team W");
+													else System.out.println("Go team B");
 												}
-												else {board.render( board.getPresent());
-												current = !current;
-												if(current)System.out.println("Go team W");
-												else System.out.println("Go team B");}
 
 										}
 										else {
